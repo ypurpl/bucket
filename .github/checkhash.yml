@@ -1,9 +1,10 @@
 name: Update File Hash
 
 on:
-  schedule:
-    - cron: '0 0 * * *' # runs daily at midnight UTC
-  workflow_dispatch: # so it can run manually
+  workflow_dispatch: # Allows manual triggering of the workflow
+  repository_dispatch:
+    types:
+      - discordo-ci-completed # Triggered by another repository's GitHub Actions
 
 jobs:
   update-hash:
