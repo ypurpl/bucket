@@ -1,6 +1,6 @@
 {
   "version": "1.0",
   "url": "https://nightly.link/ayn2op/discordo/workflows/ci/main/discordo_Windows_X64.zip",
-  "hash": "801d1aacc5da07263ccab9d88b0eb8e1c67b772c2d5d6b0ad284c0b34e9e881e",
+  "hash": "6a8bfa7d66643cd6ba62273456ed4d56065d7aa9c23fa9b8d4f7202f77c2501d",
   "bin": "discordo.exe"
 }
