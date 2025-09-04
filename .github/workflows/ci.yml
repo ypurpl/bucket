@@ -15,6 +15,10 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
+    - name: Wait for nightly.link
+      run: |
+        sleep 300
+
     - name: Download ZIP file
       run: |
         curl -L -O https://nightly.link/ayn2op/discordo/workflows/ci/main/discordo_Windows_X64.zip
@@ -42,3 +46,4 @@ jobs:
         else
           echo "No changes to commit."
         fi
+
