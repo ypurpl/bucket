@@ -30,10 +30,23 @@
             "quickbms_4gb_files.exe",
             "QuickBMS/QuickBMS (4GB Files)",
             "-G"
-        ],
-        [
-            "scripts",
-            "QuickBMS/QuickBMS Scripts"
         ]
+    ],
+    "post_install": [
+        "Write-Host ('{0}Creating shortcut for QuickBMS/QuickBMS Scripts (scripts)' -f [char]10)",
+        "$ws = New-Object -ComObject WScript.Shell",
+        "$sm = [Environment]::GetFolderPath(@('Common')[!$global] + 'StartMenu')",
+        "$ws = $ws.CreateShortcut($sm + '/Programs/Scoop Apps/QuickBMS/QuickBMS Scripts.lnk')",
+        "$ws.TargetPath = 'explorer'",
+        "$ws.Arguments = '{0}{1}{2}scripts{0}' -f [char]34, $dir, [char]92",
+        "$ws.IconLocation = $dir + [char]92 + 'quickbms.exe'",
+        "$ws.Save()"
+    ],
+    "post_uninstall": [
+        "$sm = [Environment]::GetFolderPath(@('Common')[!$global] + 'StartMenu')",
+        "$ln = [IO.Path]::Combine($sm, 'Programs', 'Scoop Apps', 'QuickBMS', 'QuickBMS Scripts.lnk')",
+        "Write-Host ('{0}Removing shortcut {0}' -f [char]10, $ln.Replace($env:USERPROFILE, '~'))",
+        "try { [IO.File]::Delete($ln) }catch{}",
+        "try { [IO.Directory]::Delete($ln + '/..') }catch{}"
     ]
 }
