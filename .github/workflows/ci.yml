@@ -19,19 +19,25 @@ jobs:
       run: |
         sleep 300
 
-    - name: Download ZIP file
+    - name: Download ZIP files
       run: |
         curl -L -O https://nightly.link/ayn2op/discordo/workflows/ci/main/discordo_Windows_X64.zip
+        curl -L -O https://nightly.link/ayn2op/discordo/workflows/ci/main/discordo_Windows_ARM64.zip
 
-    - name: Calculate hash of ZIP file
+    - name: Calculate hashes of ZIP files
       id: calculate-hash
       run: |
-        HASH=$(sha256sum discordo_Windows_X64.zip | awk '{ print $1 }')
-        echo "HASH=$HASH" >> $GITHUB_ENV
+        HASH_X64=$(sha256sum discordo_Windows_X64.zip | awk '{ print $1 }')
+        HASH_ARM64=$(sha256sum discordo_Windows_ARM64.zip | awk '{ print $1 }')
+        echo "HASH_X64=$HASH_X64" >> $GITHUB_ENV
+        echo "HASH_ARM64=$HASH_ARM64" >> $GITHUB_ENV
 
-    - name: Update hash in JSON file
+    - name: Update hashes in JSON file
       run: |
-        jq --arg hash "$HASH" '.hash = $hash' bucket/discordo.json > tmp.json && mv tmp.json bucket/discordo.json
+        jq --arg x64 "$HASH_X64" --arg arm64 "$HASH_ARM64" '
+          .architecture["64bit"].hash = $x64 |
+          .architecture["arm64"].hash = $arm64
+        ' bucket/discordo.json > tmp.json && mv tmp.json bucket/discordo.json
 
     - name: Commit and push changes
       env:
@@ -46,4 +52,3 @@ jobs:
         else
           echo "No changes to commit."
         fi
-
