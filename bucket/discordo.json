@@ -1,6 +1,14 @@
 {
   "version": "1.0",
-  "url": "https://nightly.link/ayn2op/discordo/workflows/ci/main/discordo_Windows_X64.zip",
-  "hash": "13076258caea115469ab2c040b610e0865098bb4877af9241ac9254bb6906795",
+  "architecture": {
+    "64bit": {
+      "url": "https://nightly.link/ayn2op/discordo/workflows/ci/main/discordo_Windows_X64.zip",
+      "hash": "13076258caea115469ab2c040b610e0865098bb4877af9241ac9254bb6906795"
+    },
+    "arm64": {
+      "url": "https://nightly.link/ayn2op/discordo/workflows/ci/main/discordo_Windows_ARM64.zip",
+      "hash": "9c0dc03cc24567a664a176dc0f719fffd04d34467623e242d0a2f6482af16348"
+    }
+  },
   "bin": "discordo.exe"
 }
